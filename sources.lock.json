@@ -1,0 +1,32 @@
+{
+  "version": "0.1.0",
+  "synced": "2026-10-29",
+  "sources": {
+    "https://cuongthach.com/docs/content-system/agent-skills/": "9cd5529a336d30ef8dec1acf5a3fc7bcd5bf39bb",
+    "https://cuongthach.com/docs/content-system/conditions/brand-profile/": "b883421a40728f9f68120e81b852ef6d0b146e04",
+    "https://cuongthach.com/docs/content-system/idea-write-edit/concepts/core-message/": "55cb90133d0986e37979735695c709e9ea600303",
+    "https://cuongthach.com/docs/content-system/idea-write-edit/edit/": "81bfd21e0c9a8cdcf37262efb26b851c14598624",
+    "https://cuongthach.com/docs/content-system/idea-write-edit/guides/how-to/create-a-core-message/": "3b27c3ade8d2545626a1fb883024668c0e97235c",
+    "https://cuongthach.com/docs/content-system/idea-write-edit/guides/tutorials/outline-from-one-line/": "a3802905730914d73f7f5ec3c712868dcca52619",
+    "https://cuongthach.com/docs/content-system/idea-write-edit/idea/": "16c50d18aee81dda30c96e813f545f96faa218bb",
+    "https://cuongthach.com/docs/content-system/idea-write-edit/introduction/": "b1d7e4e4fedd90c95b138b1766e85d377df3d58c",
+    "https://cuongthach.com/docs/content-system/idea-write-edit/write/": "7c2e6197412eb970952e1a1fb0e946d878f38eb4",
+    "https://cuongthach.com/docs/content-system/introduction/": "f432467b74f95b02c7a960669f64c24a97644788",
+    "https://cuongthach.com/docs/content-system/know-trust-love/concepts/know-post/": "35cb8622d7d81def1d9838f7d442f65f8fcc0821",
+    "https://cuongthach.com/docs/content-system/know-trust-love/concepts/love-post/": "49bc09c8604300431a68d6b1018d159d6745a6c1",
+    "https://cuongthach.com/docs/content-system/know-trust-love/concepts/trust-post/": "dba183f3449ca189484c95b1bd532a17deb6388e",
+    "https://cuongthach.com/docs/content-system/know-trust-love/guides/how-to/build-the-funnel-backwards/": "d4d7be2ab39e599c072beca7336297bcf1a9bc67",
+    "https://cuongthach.com/docs/content-system/know-trust-love/guides/how-to/sort-post-by-stage/": "3c74ef9d20952f4aef7a3e91a62004d99d749bad",
+    "https://cuongthach.com/docs/content-system/know-trust-love/introduction/": "f00c87e612591ff11b8ed046e8e7b444df984f83",
+    "https://cuongthach.com/docs/content-system/philosophy/": "b17a49ac4a8a528bc4a3187e1cac1b2ce9cd14ab",
+    "https://cuongthach.com/docs/content-system/resources/ai-and-prompts/": "efdb857a648bdcacd8edd6d8206000a55f9a80e9",
+    "https://cuongthach.com/docs/content-system/resources/brand-profile-template/": "df41015cb921de29d943d57e6377f447bdb91d38",
+    "https://cuongthach.com/docs/vi/content-system/agent-skills/": "d706b369b54657967ff60a0dcfdb790c058eec8a",
+    "https://cuongthach.com/docs/vi/content-system/idea-write-edit/guides/how-to/create-a-core-message/": "f688f5622d52187b364ac0a1921ca782aaa7f92f",
+    "https://cuongthach.com/docs/vi/content-system/idea-write-edit/introduction/": "12a9605654596d56041f1fc89deadf81a75a3d9c",
+    "https://cuongthach.com/docs/vi/content-system/introduction/": "1db58a3ef096bcf226ce093864106d96f118deaa",
+    "https://cuongthach.com/docs/vi/content-system/know-trust-love/introduction/": "19a5228bd99a444f30ec9b7fb47179ef6ac7cd35",
+    "https://cuongthach.com/docs/vi/content-system/resources/ai-and-prompts/": "1e0a735540f8cf3ca1e452872cefb762bf49341d",
+    "https://cuongthach.com/docs/vi/content-system/resources/brand-profile-template/": "ce73a60208466324a23b0bc215b336a965430cda"
+  }
+}
