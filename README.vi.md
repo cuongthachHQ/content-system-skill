@@ -2,7 +2,7 @@
 
 [English](README.md) · **Tiếng Việt**
 
-# CuongThach Content Skills
+# Content System Skills by Cuong Thach
 
 **Ý - Viết - Sửa · Phễu nội dung Biết - Tin - Yêu · Thông điệp lõi**
 
@@ -138,7 +138,7 @@ Mọi nội dung trong bộ skill được rút từ tài liệu công khai củ
 Bạn được dùng, sửa và chia sẻ lại, kể cả cho mục đích thương mại, miễn là **ghi nguồn** như sau:
 
 ```text
-Dựa trên bộ skill CuongThach Content Skills của Cường Thạch (https://cuongthach.com/), giấy phép CC BY 4.0.
+Dựa trên Content System Skills by Cuong Thach (https://cuongthach.com/), giấy phép CC BY 4.0.
 ```
 
 **Thuật ngữ thương hiệu:** "Hệ thống nội dung", "Phễu nội dung", "Biết - Tin - Yêu" và "Ý - Viết - Sửa", cùng tên tiếng Anh "Content system", "Know - Trust - Love" và "Idea - Write - Edit", là tên phương pháp của Cường Thạch. Khi nhắc lại, hãy giữ nguyên tên và ghi nguồn. Đừng dùng các tên này để ngụ ý sản phẩm của bạn được Cường Thạch bảo trợ.

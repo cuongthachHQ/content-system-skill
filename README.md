@@ -2,7 +2,7 @@
 
 **English** · [Tiếng Việt](README.vi.md)
 
-# CuongThach Content Skills
+# Content System Skills by Cuong Thach
 
 **Idea - Write - Edit · Know - Trust - Love content funnel · Core message**
 
@@ -138,7 +138,7 @@ Everything in these skills is drawn from Cuong Thach's public docs. When a skill
 You may use, change and share these skills, even commercially, as long as you **give credit** like this:
 
 ```text
-Based on CuongThach Content Skills by Cuong Thach (https://cuongthach.com/), licensed under CC BY 4.0.
+Based on Content System Skills by Cuong Thach (https://cuongthach.com/), licensed under CC BY 4.0.
 ```
 
 **Method names:** "Content system", "content funnel", "Know - Trust - Love" and "Idea - Write - Edit", with their Vietnamese originals "Hệ thống nội dung", "Phễu nội dung", "Biết - Tin - Yêu" and "Ý - Viết - Sửa", are the names of Cuong Thach's method. When you use them, keep them as they are and credit the source. Do not use them to suggest that Cuong Thach backs your product.
