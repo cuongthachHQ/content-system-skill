@@ -15,6 +15,10 @@ Bộ 7 skill giúp AI agent dẫn bạn làm một bài theo Ý - Viết - Sửa
 
 [Trang chủ](https://cuongthach.com/vi/) · [Tài liệu](https://cuongthach.com/docs/vi/) · [Hướng dẫn cài](https://cuongthach.com/docs/vi/content-system/agent-skills/) · [Blog](https://cuongthach.com/vi/blog/)
 
+[![Content System Skills trong 40 giây: bấm để xem video](https://cuongthach.com/docs/media/agent-skills/content-system-skills-vi.jpg)](https://cuongthach.com/docs/media/agent-skills/content-system-skills-vi.mp4)
+
+*Bấm vào ảnh để xem video 40 giây*
+
 </div>
 
 ---

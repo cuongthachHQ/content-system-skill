@@ -15,6 +15,10 @@
 
 [Homepage](https://cuongthach.com/) · [Docs](https://cuongthach.com/docs/) · [Install guide](https://cuongthach.com/docs/content-system/agent-skills/) · [Blog](https://cuongthach.com/blog/)
 
+[![Content System Skills in 40 seconds: play the video](https://cuongthach.com/docs/media/agent-skills/content-system-skills.jpg)](https://cuongthach.com/docs/media/agent-skills/content-system-skills.mp4)
+
+*Click to play the 40-second video*
+
 </div>
 
 ---
