@@ -6,7 +6,7 @@
 
 **Idea - Write - Edit · Know - Trust - Love content funnel · Core message**
 
-7 skills that let your AI agent walk you through one post with Idea - Write - Edit, from brand profile to edited draft, without writing for you. Built from [Cuong Thach](https://cuongthach.com/)'s content method.
+8 skills that let your AI agent walk you through one post with Idea - Write - Edit, from brand profile to edited draft, without writing for you. Built from [Cuong Thach](https://cuongthach.com/)'s content method.
 
 [![GitHub stars](https://img.shields.io/github/stars/cuongthachHQ/content-system-skill?style=social)](https://github.com/cuongthachHQ/content-system-skill/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/cuongthachHQ/content-system-skill?style=social)](https://github.com/cuongthachHQ/content-system-skill/network/members)
@@ -38,10 +38,11 @@ Each skill is a folder of instructions that an AI agent loads when your task cal
 
 - [Claude Code](https://code.claude.com/docs/en/overview) or [Antigravity](https://antigravity.google/), open in the project folder where you make content
 - The latest LTS version of [Node.js](https://nodejs.org/en/download). The install command runs with `npx`, which comes with Node.js, and needs **at least version 22.20**
+- Only for `ct-audio-create`: about 10 minutes and 2 GB once, for its installer to set up the two voices on your computer (macOS, Linux or Windows); the other skills need nothing more
 
 ## Install in your agent
 
-**1. Install the 7 skills.** The fastest way is to paste this into your agent, and it runs the install command:
+**1. Install the 8 skills.** The fastest way is to paste this into your agent, and it runs the install command:
 
 ```text
 Install all skills from https://github.com/cuongthachHQ/content-system-skill into this project with npx skills add, picking the agent you are running and adding -y, then list the installed skills.
@@ -61,7 +62,7 @@ Add `-g` to the end of the command to use the skills in every project on your co
 
 **2. Check the skills are in the agent.**
 
-- **In Claude Code**, type `/` and see all 7 names, in `.claude/skills/`.
+- **In Claude Code**, type `/` and see all 8 names, in `.claude/skills/`.
 - **In Antigravity**, ask *"Which skills do you have?"*, with the skills in `.agents/skills/`.
 
 **3. Type `/cuongthach`.** The main skill asks what you hold: a topic, a recording, a locked outline or a draft. You answer, then it runs the skill for the next step, **without writing the post on its own**.
@@ -76,6 +77,7 @@ Add `-g` to the end of the command to use the skills in every project on your co
 | `ct-record-plan` | Writes a question set in three groups, What it is, How it works, Why it matters, for you to answer while you record |
 | `ct-message-create` | Squeezes three answers about the customer, the problem and the solution into one core message |
 | `ct-post-write` | Runs the three steps of Idea - Write - Edit: lock the outline, write the draft in one go, then only cut |
+| `ct-audio-create` | Reads a finished post aloud with two voices on your own computer, Vietnamese and English, re-reads only the sections you edit, and keeps the audio in R2 or in your repo (a tool skill: it carries scripts, read its `SKILL.md` for the one-time install) |
 | `cuongthach-update` | Checks for a newer version of the skills, sums up what changed, and updates them on your yes |
 
 ## Skill usage examples

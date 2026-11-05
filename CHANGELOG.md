@@ -2,6 +2,10 @@
 
 Each release follows the docs at https://cuongthach.com/docs/. A skill changes only when the docs page it is drawn from changes.
 
+## 0.2.0 - 2026-11-05
+
+- New tool skill `ct-audio-create`: reads a finished post aloud with two voices that run on your own computer (VieNeu-TTS for Vietnamese, Kokoro for English), one audio part per section so an edit re-reads only that section, the M4A kept in Cloudflare R2 or in your repo. The first skill with scripts; `cuongthach` routes a finished post to it, both READMEs and the docs page list it, and the install needs about 10 minutes and 2 GB once for the voices.
+
 ## 0.1.3 - 2026-11-05
 
 - `ct-profile-create` now says Product and Website are the 2 required entries and the other 8 can stay empty, as the brand profile docs do. The other skills had only wording changes in their docs, so they stay as they are.

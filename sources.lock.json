@@ -1,8 +1,8 @@
 {
-  "version": "0.1.3",
+  "version": "0.2.0",
   "synced": "2026-11-05",
   "sources": {
-    "https://cuongthach.com/docs/content-system/agent-skills/": "cc7dbce3ba8edc4b8e49cf0245ae601edd42c566",
+    "https://cuongthach.com/docs/content-system/agent-skills/": "efcf658e35aaef61f265837f2a3c41790f64a922",
     "https://cuongthach.com/docs/content-system/conditions/brand-profile/": "6db4aaa288b16a0bc825f1b920238c6a8af72059",
     "https://cuongthach.com/docs/content-system/idea-write-edit/concepts/core-message/": "f1105f1cd36360ecb887f33437deac8bfdf5d2cd",
     "https://cuongthach.com/docs/content-system/idea-write-edit/edit/": "e0eaa37d91e952aad8652c06146aff181a9aa173",
@@ -10,7 +10,7 @@
     "https://cuongthach.com/docs/content-system/idea-write-edit/guides/tutorials/outline-from-one-line/": "17dd658a5845ddecd5a2c277e78377c5491bf468",
     "https://cuongthach.com/docs/content-system/idea-write-edit/idea/": "62cf0865bafde2df8833af856c8928c906334d0d",
     "https://cuongthach.com/docs/content-system/idea-write-edit/introduction/": "03f27a2a8a70491b401316db0559b859ba5cbe9c",
-    "https://cuongthach.com/docs/content-system/idea-write-edit/write/": "435ff57e513e953da5770d70bc4b8efd717c6438",
+    "https://cuongthach.com/docs/content-system/idea-write-edit/write/": "ab2e4eaf8cf146670804921c0b8722cd5070a709",
     "https://cuongthach.com/docs/content-system/introduction/": "413d0dc144003528252f41ac39437dda7d76bd83",
     "https://cuongthach.com/docs/content-system/know-trust-love/concepts/know-post/": "1b97ba42a9fa4e5390b9faa034aac98337b0938c",
     "https://cuongthach.com/docs/content-system/know-trust-love/concepts/love-post/": "999d0e5ec4572c2cf1b0d83a789fe6a91702d8ef",
@@ -21,7 +21,7 @@
     "https://cuongthach.com/docs/content-system/philosophy/": "1467b8bb3739cfe2c2678325aac0aa829638322b",
     "https://cuongthach.com/docs/content-system/resources/ai-and-prompts/": "e34e469a4876cfb6bda623d584d8bd0121ec7566",
     "https://cuongthach.com/docs/content-system/resources/brand-profile-template/": "44e5647ab3ccb368b0a2ce5ef5aaea72ebebbada",
-    "https://cuongthach.com/docs/vi/content-system/agent-skills/": "c7c415c40177a7db16596e9ecd43f0b0fe54d7c7",
+    "https://cuongthach.com/docs/vi/content-system/agent-skills/": "77a06e21d038ca39e410291296c7361d4a10ee00",
     "https://cuongthach.com/docs/vi/content-system/idea-write-edit/guides/how-to/create-a-core-message/": "3c215ce96ab43f022f33cf9eb68ec42be7bd8bda",
     "https://cuongthach.com/docs/vi/content-system/idea-write-edit/introduction/": "8d59fbd1946353862ce6dba629d86fc3b5ffc7da",
     "https://cuongthach.com/docs/vi/content-system/introduction/": "5a5098120681b38d4e1ae0cd1ad4a4c2b2f05089",
