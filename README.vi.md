@@ -12,6 +12,7 @@ Bộ 7 skill giúp AI agent dẫn bạn làm một bài theo Ý - Viết - Sửa
 [![GitHub forks](https://img.shields.io/github/forks/cuongthachHQ/content-system-skill?style=social)](https://github.com/cuongthachHQ/content-system-skill/network/members)
 [![Last commit](https://img.shields.io/github/last-commit/cuongthachHQ/content-system-skill)](https://github.com/cuongthachHQ/content-system-skill/commits)
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](LICENSE)
+[![cuongthachHQ on GitRanks: profile](https://gitranks.com/badge/user/cuongthachHQ/profile-card.svg)](https://gitranks.com/profile/cuongthachHQ)
 
 [Trang chủ](https://cuongthach.com/vi/) · [Tài liệu](https://cuongthach.com/docs/vi/) · [Hướng dẫn cài](https://cuongthach.com/docs/vi/content-system/agent-skills/) · [Blog](https://cuongthach.com/vi/blog/)
 

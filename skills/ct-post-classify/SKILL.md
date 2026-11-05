@@ -50,7 +50,7 @@ Readers go forward, the writer builds **backward**:
 
 Phase 1 is **exactly three linked posts**: one Know, one Trust, one Love pointing to the sales page or waitlist. Phase 2 grows it without a new Love post: write Know and Trust posts in pairs, cross-link new Know posts to the best existing Trust post, then add more Know posts for more touchpoints.
 
-The product does not have to be finished: the Love post can lead to a waitlist.
+If the product is not finished, the Love post leads to the waitlist instead of the sales page.
 
 ## What you never do
 

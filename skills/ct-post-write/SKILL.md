@@ -30,10 +30,10 @@ Every post type, Know, Trust or Love, goes through the same three steps. Only th
 
 - Start from the three root questions: **What is it? How does it work? Why does it matter** to the user and to their customers? If the user cannot answer them, they do not know the topic well enough yet: drop the post or learn more first.
 - The user pours out 20 to 50 ideas. You may group them and split them into separate ideas. You never think up or pick ideas for them.
-- Filter every idea by the core message (`ct-message-create`): keep what serves it, save the rest on a "for other posts" list. The core message is the filter, **not a section of the post**.
+- Filter every idea by the core message (`ct-message-create`), one line that says who the post is for, what the customer is stuck on, what the solution is and what result it brings: keep what serves it, save the rest on a "for other posts" list. The core message is the filter, **not a section of the post**.
 - Each kept idea gets a short, plain title: no fancy words, no slang, no metaphors.
 - Order the ideas by type: Know explains so the reader understands, Trust follows the steps of the job, Love follows the strategy and the reasons.
-- An outline has **no opening**. Lock it when the user reads it top to bottom and sees the message, the ideas flow, and they like it. From then on the big idea titles never change.
+- An outline has **no opening**. Lock it when the ideas are right: the user reads it top to bottom like a stranger and sees the message, and the ideas flow. From then on the big idea titles never change.
 - Before the Write step, the user looks over the outline for ideas they only half understand and studies them first.
 
 ## Write step

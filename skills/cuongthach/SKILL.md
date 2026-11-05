@@ -23,9 +23,8 @@ This is the entry point. The user starts here with `/cuongthach`. You find where
 | `ct-profile-create` | Fill the brand profile, before any content work |
 | `ct-post-classify` | Sort a post into Know, Trust or Love, and plan which posts to write |
 | `ct-record-plan` | Write the guiding question set before recording |
-| `ct-message-create` | Squeeze the core message from customer, problem and solution |
+| `ct-message-create` | Squeeze the four parts, customer, pain, solution and result, into one core message line |
 | `ct-post-write` | Run the Idea - Write - Edit steps: lock the outline, write the draft, edit |
-| `cuongthach-update` | Update the installed skills to the latest version, when the user asks |
 | `cuongthach-update` | Update the installed skills to the latest version, when the user asks |
 
 ## Where the post stands
@@ -37,7 +36,7 @@ Ask what the user holds right now. The first row that is true names the next ste
 | No brand profile | Fill one first | `ct-profile-create` |
 | A topic, no post type | Sort it into Know, Trust or Love | `ct-post-classify` |
 | A topic and a type, nothing said yet | Write the guiding questions, then record or write freely | `ct-record-plan` |
-| Poured-out ideas or a transcript, no core message | Write the core message | `ct-message-create` |
+| Poured-out ideas or a transcript, no core message | Squeeze the core message into one line | `ct-message-create` |
 | A core message, no locked outline | Idea step: filter ideas, lock the outline | `ct-post-write` |
 | A locked outline | Write step | `ct-post-write` |
 | A rough draft | Edit step | `ct-post-write` |
