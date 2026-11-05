@@ -20,7 +20,8 @@ Reply in the user's language. A writer or AI agent reads this profile before any
 2. Go through the ten entries **one at a time**, in order. For each, say in one line which part of the work uses it, then ask.
 3. Write the user's answer in their own words. **Never invent, guess or polish data.** An entry with no data gets `Not yet`, and the line stays.
 4. Each true story must be one the user may share.
-5. At the end, show the filled file and list the entries still `Not yet`.
+5. **Product and Website are the 2 required entries.** Without either, the system cannot run yet. The other 8 can stay empty. Never fill an empty entry alone: ask the user.
+6. At the end, show the filled file and list the entries still `Not yet`.
 
 | Entry | Used by | What to ask |
 |---|---|---|
