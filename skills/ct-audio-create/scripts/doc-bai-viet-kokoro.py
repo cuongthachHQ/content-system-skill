@@ -10,7 +10,7 @@ puts the model in ~/.vieneu-tts/kokoro (or $VIENEU_HOME/kokoro). Run with that e
 Blank lines in the text are paragraph breaks. Writes <name>.m4a (AAC, mono, light) next to the .txt, or --out;
 --format mp3 for an MP3. Voices starting with "a" are American English, "b" British English. With the converter's
 <name>.src.json beside the .txt it also writes the player's timing file <audioSync>/<name>.en.json
-(or --sync; --no-sync skips it). A full read keeps one audio part per H2 section and reads again only the sections
+(or --sync; --no-sync skips it). A full read keeps one audio part per section (an H2, or the lead and each H3 of an H2 with more than 2 H3s) and reads again only the sections
 whose words changed (parts.py; --fresh reads everything). A sample never touches the parts.
 """
 import argparse, os, subprocess, sys, time
@@ -83,7 +83,7 @@ def main():
             lengths.append(len(wav))
         full = np.concatenate(chunks)
     else:
-        # One part per H2 section, reused while its words and the voice stay the same (parts.py).
+        # One part per section (an H2, or each H3 of an H2 with more than 2), reused while its words and the voice stay the same (parts.py).
         engine = {"name": "kokoro", "version": version("kokoro-onnx"), "model": "v1.0", "voice": a.voice,
                   "speed": a.speed, "lang": lang}
         full, lengths, _ = build(src, "en", paras, engine, sr, PAUSE_SEC, read_many, fresh=a.fresh)

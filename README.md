@@ -38,7 +38,7 @@ Each skill is a folder of instructions that an AI agent loads when your task cal
 
 - [Claude Code](https://code.claude.com/docs/en/overview) or [Antigravity](https://antigravity.google/), open in the project folder where you make content
 - The latest LTS version of [Node.js](https://nodejs.org/en/download). The install command runs with `npx`, which comes with Node.js, and needs **at least version 22.20**
-- Only for `ct-audio-create`: about 10 minutes and 2 GB once, for its installer to set up the two voices on your computer (macOS, Linux or Windows); the other skills need nothing more
+- Only for `ct-audio-create`: about 10 minutes and 1.5 GB once, for its installer to set up the two voices on your computer (macOS, Linux or Windows); the other skills need nothing more
 
 ## Install in your agent
 
@@ -77,7 +77,7 @@ Add `-g` to the end of the command to use the skills in every project on your co
 | `ct-record-plan` | Writes a question set in three groups, What it is, How it works, Why it matters, for you to answer while you record |
 | `ct-message-create` | Squeezes three answers about the customer, the problem and the solution into one core message |
 | `ct-post-write` | Runs the three steps of Idea - Write - Edit: lock the outline, write the draft in one go, then only cut |
-| `ct-audio-create` | Reads a finished post aloud with two voices on your own computer, Vietnamese and English, re-reads only the sections you edit, and keeps the audio in R2 or in your repo (a tool skill: it carries scripts, read its `SKILL.md` for the one-time install) |
+| `ct-audio-create` | Reads a finished post aloud with two free voices on your own computer, Vietnamese and English, or with your own cloned ElevenLabs voice, re-reads only the sections you edit, and keeps the audio in R2 or in your repo (a tool skill: it carries scripts, read its `SKILL.md` for the one-time install) |
 | `cuongthach-update` | Checks for a newer version of the skills, sums up what changed, and updates them on your yes |
 
 ## Skill usage examples
@@ -85,8 +85,8 @@ Add `-g` to the end of the command to use the skills in every project on your co
 A post goes through the skills in the order below. **You only need to type `/cuongthach`** and the agent calls the next step, or type a skill's name when you know which step you are at.
 
 - `/ct-profile-create`: fill in the 10-entry brand profile, once
-- `/ct-post-classify Is this a Know, Trust or Love post?`: sort the post before you write
-- `/ct-record-plan A Trust post on writing from a recording`: get the questions to record with
+- `/ct-post-classify`: paste the post or name the topic, and the agent sorts it into Know, Trust or Love before you write
+- `/ct-record-plan`: name the topic and the post type, and get the questions to record with
 - `/ct-message-create`: paste the recording and squeeze it into one core message
 - `/ct-post-write`: filter ideas, lock the outline, then write and edit
 

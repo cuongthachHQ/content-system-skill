@@ -9,7 +9,7 @@ Setup once per machine with setup.sh (same folder). Run with the venv it builds:
 Blank lines in the text are paragraph breaks. Writes <name>.m4a (AAC, mono, light) next to the .txt, or --out;
 --format mp3 for an MP3. With the converter's <name>.src.json beside the .txt it also writes the timing file the player
 uses to highlight the block being read: <audioSync>/<name>.vi.json (or --sync; --no-sync skips it).
-A full read keeps one audio part per H2 section and reads again only the sections whose words changed (parts.py;
+A full read keeps one audio part per section (an H2, or the lead and each H3 of an H2 with more than 2 H3s) and reads again only the sections whose words changed (parts.py;
 --fresh reads everything). A sample never touches the parts.
 """
 import argparse, hashlib, os, subprocess, sys, time
@@ -112,7 +112,7 @@ def main():
             lengths.append(len(wav))
         full = np.concatenate(chunks)
     else:
-        # One part per H2 section, reused while its words and the voice stay the same (parts.py).
+        # One part per section (an H2, or each H3 of an H2 with more than 2), reused while its words and the voice stay the same (parts.py).
         ref = hashlib.sha1(Path(a.ref).read_bytes()).hexdigest()[:12] if a.ref else None
         engine = {"name": "vieneu", "version": version("vieneu"), "voice": None if a.ref else a.voice, "ref": ref}
         full, lengths, _ = build(src, "vi", paras, engine, SR, PAUSE_SEC, read_many, fresh=a.fresh)

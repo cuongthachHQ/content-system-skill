@@ -25,3 +25,14 @@ About 10 minutes and 1.5 GB: uv from astral.sh (only if missing), Python 3.12, `
 - A word is read wrong: respell it in `fix.tsv` and rerun step 3.
 - Uninstall: delete the `~/.vieneu-tts` folder (both voices; and the Vietnamese model in `~/.cache/huggingface/hub/models--*` if the space matters).
 - Colab instead of a local install: `scripts/doc-bai-viet-vieneu.ipynb` (upload the notebook and the `.txt` to colab.research.google.com).
+
+## HE-AAC (ElevenLabs reader only)
+
+Optional, never part of the installers: the ElevenLabs reader writes HE-AAC 40k with Apple's encoder when it finds one, else AAC-LC 64k. Install only with the user's yes.
+
+- **Windows: qaac.** Into `~/.vieneu-tts/qaac/` (or `$VIENEU_HOME/qaac/`), never the project:
+  1. The zip of the latest release from github.com/nu774/qaac (`qaac_<v>.zip`, about 7 MB), unpacked there: `qaac_<v>/x64/qaac64.exe`.
+  2. Apple's encoder: `iTunes64Setup.exe` from apple.com/itunes/download/win64 (about 190 MB; check its signature is Apple Inc.), then `iTunes64Setup.exe /extract <dir>` and `msiexec /a <dir>\iTunes64.msi /qn TARGETDIR=<dir2>` (copies files, installs nothing). Recent installers hold no separate Apple Application Support package.
+  3. Every `*.dll` of `<dir2>\iTunes\` into `qaac_<v>/x64/QTfiles64/`. `qaac64.exe --check` prints `CoreAudioToolbox <version>`. The downloads can then be deleted.
+  The reader finds the newest `qaac*/x64/qaac64.exe` there, or the path in `$QAAC`.
+- **macOS:** the Homebrew ffmpeg (`brew install ffmpeg`) has `aac_at`, Apple's encoder (`ffmpeg -encoders | grep aac_at`); the reader uses the ffmpeg on `PATH`.

@@ -1,4 +1,4 @@
-"""Audio parts, one per H2 section, shared by both readers (doc-bai-viet-vieneu.py, doc-bai-viet-kokoro.py): a reader
+"""Audio parts, one per section (the opening, each H2, or the lead and each H3 of an H2 with more than 2 H3s; 2026-11-06), shared by both readers (doc-bai-viet-vieneu.py, doc-bai-viet-kokoro.py): a reader
 reads again only the sections whose words (or voice) changed and joins every part into the one file the site plays.
 
 - A part's name is a hash of what makes its sound: engine, voice settings, pause and the section's spoken text. Same
@@ -54,10 +54,10 @@ def ffmpeg() -> str:
     return imageio_ffmpeg.get_ffmpeg_exe()
 
 
-def encode_opus(audio: np.ndarray, sr: int, out: Path) -> None:
+def encode_opus(audio: np.ndarray, sr: int, out: Path, bitrate: str = PART_BITRATE) -> None:
     out.parent.mkdir(parents=True, exist_ok=True)
     cmd = [ffmpeg(), "-y", "-loglevel", "error", "-f", "f32le", "-ar", str(sr), "-ac", "1", "-i", "-",
-           "-c:a", "libopus", "-b:a", PART_BITRATE, "-application", "audio", "-f", "ogg", str(out)]  # -f: out may be .opus.tmp
+           "-c:a", "libopus", "-b:a", bitrate, "-application", "audio", "-f", "ogg", str(out)]  # -f: out may be .opus.tmp
     subprocess.run(cmd, input=np.ascontiguousarray(audio, dtype=np.float32).tobytes(), check=True)
 
 
@@ -80,7 +80,7 @@ def sections(txt: Path, paras: list[str]) -> list[tuple[str, list[str]]]:
             return out
         print(f"{f.name} counts {sum(s['n'] for s in secs)} paragraphs, the .txt has {len(paras)}: one part (rerun md-to-tts-txt.py)", flush=True)
     else:
-        print(f"no {f.name}: the whole text is one part (rerun md-to-tts-txt.py to get one part per H2)", flush=True)
+        print(f"no {f.name}: the whole text is one part (rerun md-to-tts-txt.py to get one part per section)", flush=True)
     return [("", paras)]
 
 
@@ -89,7 +89,8 @@ def part_key(engine: dict, pause_sec: float, paras: list[str]) -> str:
     return hashlib.sha1(blob.encode("utf-8")).hexdigest()[:16]
 
 
-def build(txt: Path, lang: str, paras: list[str], engine: dict, sr: int, pause_sec: float, read_many, fresh=False):
+def build(txt: Path, lang: str, paras: list[str], engine: dict, sr: int, pause_sec: float, read_many, fresh=False,
+          part_bitrate: str = PART_BITRATE):
     """The whole audio and the samples of each paragraph, reading only the sections no part holds yet.
 
     read_many(list of paragraphs) yields one float32 array per paragraph, in order; it is called once, and only when
@@ -158,7 +159,7 @@ def build(txt: Path, lang: str, paras: list[str], engine: dict, sr: int, pause_s
             p["audio"] = np.concatenate([x for a in arrs for x in (a, pause)])
             # .tmp until the manifest holds its lengths: a run stopped half way leaves no part whose lengths the
             # manifest does not know (a new read of the same words never has exactly the same lengths).
-            encode_opus(p["audio"], sr, store / f"{p['key']}.opus.tmp")
+            encode_opus(p["audio"], sr, store / f"{p['key']}.opus.tmp", part_bitrate)
             p["new"] = True
             published.discard(p["key"])  # R2 holds another read under this name (--fresh, failed fetch): upload again
 

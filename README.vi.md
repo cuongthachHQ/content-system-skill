@@ -38,7 +38,7 @@ Mỗi skill là một thư mục hướng dẫn mà AI agent nạp khi việc c�
 
 - [Claude Code](https://code.claude.com/docs/en/overview) hoặc [Antigravity](https://antigravity.google/), mở ở thư mục dự án nơi bạn làm nội dung
 - [Node.js](https://nodejs.org/en/download) bản LTS mới nhất. Lệnh cài chạy bằng `npx`, đi kèm Node.js, và cần **ít nhất bản 22.20**
-- Riêng `ct-audio-create`: khoảng 10 phút và 2 GB một lần, để trình cài của nó dựng hai giọng đọc trên máy bạn (macOS, Linux hay Windows); các skill khác không cần gì thêm
+- Riêng `ct-audio-create`: khoảng 10 phút và 1,5 GB một lần, để trình cài của nó dựng hai giọng đọc trên máy bạn (macOS, Linux hay Windows); các skill khác không cần gì thêm
 
 ## Cài vào agent
 
@@ -77,7 +77,7 @@ Thêm `-g` vào cuối lệnh để dùng bộ skill ở mọi dự án trên m�
 | `ct-record-plan` | Soạn bộ câu hỏi ba nhóm Là gì, Như thế nào, Tại sao để bạn tự trả lời khi ghi âm |
 | `ct-message-create` | Ép ba câu trả lời về khách hàng, vấn đề và giải pháp thành một câu thông điệp lõi |
 | `ct-post-write` | Chạy ba bước Ý - Viết - Sửa: chốt dàn ý, viết bản nháp một mạch, rồi chỉ cắt |
-| `ct-audio-create` | Đọc bài đã xong thành bản nghe bằng hai giọng chạy ngay trên máy bạn, tiếng Việt và tiếng Anh, chỉ đọc lại mục bạn sửa, giữ audio trên R2 hay trong repo (skill công cụ: có script, đọc `SKILL.md` của nó để cài một lần) |
+| `ct-audio-create` | Đọc bài đã xong thành bản nghe bằng hai giọng miễn phí chạy ngay trên máy bạn, tiếng Việt và tiếng Anh, hoặc bằng chính giọng của bạn clone trên ElevenLabs, chỉ đọc lại mục bạn sửa, giữ audio trên R2 hay trong repo (skill công cụ: có script, đọc `SKILL.md` của nó để cài một lần) |
 | `cuongthach-update` | Xem có bản mới của bộ skill không, tóm tắt thay đổi, rồi cập nhật khi bạn đồng ý |
 
 ## Ví dụ cách dùng Skill
@@ -85,8 +85,8 @@ Thêm `-g` vào cuối lệnh để dùng bộ skill ở mọi dự án trên m�
 Một bài đi qua các skill theo thứ tự dưới đây. **Bạn chỉ cần gõ `/cuongthach`**, agent tự gọi bước tiếp theo, hoặc gõ thẳng tên skill khi đã biết mình ở bước nào.
 
 - `/ct-profile-create`: điền hồ sơ thương hiệu 10 mục, làm một lần
-- `/ct-post-classify Bài này là bài Biết, Tin hay Yêu?`: xếp loại bài trước khi viết
-- `/ct-record-plan Bài Tin về cách viết từ ghi âm`: nhận bộ câu hỏi để tự ghi âm
+- `/ct-post-classify`: dán bài hoặc nêu đề tài, agent xếp vào bài Biết, Tin hay Yêu trước khi viết
+- `/ct-record-plan`: nêu đề tài và loại bài, nhận bộ câu hỏi để tự ghi âm
 - `/ct-message-create`: dán bản ghi âm, ép thành một câu thông điệp lõi
 - `/ct-post-write`: lọc ý, chốt dàn ý, rồi viết và sửa
 

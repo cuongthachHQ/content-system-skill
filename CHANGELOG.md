@@ -2,6 +2,10 @@
 
 Each release follows the docs at https://cuongthach.com/docs/. A skill changes only when the docs page it is drawn from changes.
 
+## 0.2.1 - 2026-11-07
+
+- `ct-audio-create` can read with your own voice cloned on ElevenLabs, Vietnamese and English with the Eleven v4 model, through a new reader script; `references/elevenlabs.md` explains the API key, the voice ID, the defaults (Vietnamese 1.1 x faster with the pitch kept, HE-AAC 40k from 44.1 kHz sound) and the cost, and `"engine": "elevenlabs"` in the config makes it the default. The scripts also cut a long H2 into one part per H3, so an edit re-reads less. `cuongthach` and both READMEs mention the new voice; `cuongthach-update` had only wording changes in its docs.
+
 ## 0.2.0 - 2026-11-05
 
 - New tool skill `ct-audio-create`: reads a finished post aloud with two voices that run on your own computer (VieNeu-TTS for Vietnamese, Kokoro for English), one audio part per section so an edit re-reads only that section, the M4A kept in Cloudflare R2 or in your repo. The first skill with scripts; `cuongthach` routes a finished post to it, both READMEs and the docs page list it, and the install needs about 10 minutes and 2 GB once for the voices.

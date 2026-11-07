@@ -25,7 +25,7 @@ This is the entry point. The user starts here with `/cuongthach`. You find where
 | `ct-record-plan` | Write the guiding question set before recording |
 | `ct-message-create` | Squeeze the four parts, customer, pain, solution and result, into one core message line |
 | `ct-post-write` | Run the Idea - Write - Edit steps: lock the outline, write the draft, edit |
-| `ct-audio-create` | Turn a finished post into its audio version with two local voices, Vietnamese and English (a tool skill with scripts) |
+| `ct-audio-create` | Turn a finished post into its audio version with two free local voices, Vietnamese and English, or the user's own cloned ElevenLabs voice (a tool skill with scripts) |
 | `cuongthach-update` | Update the installed skills to the latest version, when the user asks |
 
 ## Where the post stands

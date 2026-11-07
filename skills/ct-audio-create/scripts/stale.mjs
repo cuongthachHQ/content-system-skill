@@ -198,7 +198,11 @@ for (const r of rows) {
   const d = dir.replace(/\\/g, "/");
   const step3 = `"$PY" ${SKILL}/md-to-tts-txt.py ${it.md.replace(/\\/g, "/")} ${d} ${shellFlags(r.flags)}`.trim();
   const voice = cfg.audio.voice ?? "Thiện Minh"; // the site's Vietnamese voice (audio.voice in content.config.json)
-  const reader = en ? `"$PY" ${SKILL}/doc-bai-viet-kokoro.py ${d}/${it.slug}.txt` : `"$PY" ${SKILL}/doc-bai-viet-vieneu.py ${d}/${it.slug}.txt --voice "${voice}"`;
+  // The site's engine (audio.engine in content.config.json, "elevenlabs" or the local voices), or the engine of the
+  // post's last read (parts.json), so a post read with the user's ElevenLabs voice stays on it.
+  const pj = join(dir, `${it.slug}.parts.json`);
+  const eleven = cfg.audio.engine === "elevenlabs" || (existsSync(pj) && JSON.parse(read(pj)).engine?.name === "elevenlabs");
+  const reader = eleven ? `"$PY" ${SKILL}/doc-bai-viet-elevenlabs.py ${d}/${it.slug}.txt` : en ? `"$PY" ${SKILL}/doc-bai-viet-kokoro.py ${d}/${it.slug}.txt` : `"$PY" ${SKILL}/doc-bai-viet-vieneu.py ${d}/${it.slug}.txt --voice "${voice}"`;
   const pub = `node ${SKILL}/publish.mjs ${it.slug}${en ? " --lang=en" : ""}${it.page ? " --page" : ""}`;
   console.log("\nNext:");
   if (!flag("write") && r.text !== "same") console.log(`  3. ${step3}   (or: stale.mjs ${it.slug} --lang=${it.lang} --write), then read the whole .txt`);

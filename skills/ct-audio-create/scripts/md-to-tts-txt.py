@@ -4,7 +4,7 @@
 Usage (PY is the venv python setup.sh builds; any python 3.8+ also works, this file needs only the standard library):
   "$PY" <skill>/scripts/md-to-tts-txt.py <blog>/vi/<slug>.md <audioWork>/<slug>
         [--skip "<H2 text>"] [--read-title] [--no-headings] [--chapters] [--fix <audioWork>/<slug>/fix.tsv]
-Writes <out>/<slug>.txt, <slug>.src.json, <slug>.sections.json (paragraphs per H2 section, read by the readers' part
+Writes <out>/<slug>.txt, <slug>.src.json, <slug>.sections.json (paragraphs per part: the opening, each H2, each H3 of an H2 with more than 2; read by the readers' part
 cache) and <slug>.args.json (the flags used, read by stale.mjs), or one chapNN.txt
 per H2 with --chapters. Only its own output files are overwritten.
 
@@ -480,10 +480,32 @@ if args.chapters:
         write(f"chap{i:02d}", d)
 else:
     write(slug, [pair for d in docs for pair in d])
-    # Where each H2 section starts in the .txt, so the readers can keep one audio part per section and read again only
-    # the sections whose words changed (parts.py). "h" is the heading as the page shows it ("" for the opening).
+    # Where each section starts in the .txt, so the readers can keep one audio part per section and read again only
+    # the sections whose words changed (parts.py). An H2 with more than 2 H3s is cut further (user decision
+    # 2026-11-06): its heading and lead are one part, each H3 one more, so editing one long H3 reads only that H3
+    # again; an H2 with 2 H3s stays one part. With --no-headings the H3 headings are not in the text, so the H2
+    # stays one part. "h" is the heading as the page shows it ("" for the opening).
+    MIN_H3 = 3
+
+    def split_h3(name, body, d):
+        subs = [page_text(m.strip()) for m in re.findall(r"^###\s+(.+)$", body, flags=re.M)]
+        if len(subs) < MIN_H3:
+            return [{"h": page_text(name), "n": len(d)}]
+        out, cur, h, k = [], [], page_text(name), 0
+        for pair in d:
+            if k < len(subs) and pair[0] == subs[k] and cur:
+                out.append({"h": h, "n": len(cur)})
+                cur, h = [], subs[k]
+            if k < len(subs) and pair[0] == subs[k]:
+                k += 1
+            cur.append(pair)
+        if cur:
+            out.append({"h": h, "n": len(cur)})
+        return out
+
+    secs = [s for (n, b), d in zip(sections, docs) if d for s in split_h3(n, b, d)]
     with open(os.path.join(args.out, slug + ".sections.json"), "w", encoding="utf8", newline="\n") as f:
-        json.dump([{"h": page_text(n), "n": len(d)} for (n, _), d in zip(sections, docs) if d], f, ensure_ascii=False)
+        json.dump(secs, f, ensure_ascii=False)
         f.write("\n")
     # The flags of this run, so stale.mjs can remake the text the same way later (tracked beside the .txt).
     used = {"ordinal": args.ordinal, "skip": args.skip, "read_title": args.read_title, "no_headings": args.no_headings,
