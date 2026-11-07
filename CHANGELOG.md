@@ -2,6 +2,10 @@
 
 Each release follows the docs at https://cuongthach.com/docs/. A skill changes only when the docs page it is drawn from changes.
 
+## 0.2.2 - 2026-11-07
+
+- `ct-audio-create` keeps smaller parts with ElevenLabs: each section is cut into groups of paragraphs of at least 200 characters, so a few words changed send about 280 characters again instead of the whole section. Audio already made keeps its parts until a section is edited. The docs page has the new row in its comparison table.
+
 ## 0.2.1 - 2026-11-07
 
 - `ct-audio-create` can read with your own voice cloned on ElevenLabs, Vietnamese and English with the Eleven v4 model, through a new reader script; `references/elevenlabs.md` explains the API key, the voice ID, the defaults (Vietnamese 1.1 x faster with the pitch kept, HE-AAC 40k from 44.1 kHz sound) and the cost, and `"engine": "elevenlabs"` in the config makes it the default. The scripts also cut a long H2 into one part per H3, so an edit re-reads less. `cuongthach` and both READMEs mention the new voice; `cuongthach-update` had only wording changes in its docs.

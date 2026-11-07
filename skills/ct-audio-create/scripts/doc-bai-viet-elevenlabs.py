@@ -26,7 +26,7 @@ import numpy as np
 import soundfile as sf
 
 from audio_sync import sync_path, write_sync
-from parts import build, find_repo, part_key, sections
+from parts import build, find_repo, plan_parts
 
 API = "https://api.elevenlabs.io/v1"
 UA = "content-kit-audio/1.0"
@@ -38,6 +38,10 @@ SR = 44100
 HE_KBPS = 40  # the most Apple's HE-AAC encoder gives one channel
 AAC_BITRATE = "64k"
 PART_BITRATE = "64k"
+# One part per group of paragraphs of at least this many characters, never across a section (user decision 2026-11-07):
+# a few words changed send about 280 characters again instead of the whole section (median 1,300). v4 reads each
+# paragraph on its own, so a group read again sounds like the rest. Sections read before keep their one part.
+GROUP_CHARS = 200
 PAUSE_SEC = 0.6
 # eleven_multilingual_v2 has no Vietnamese; eleven_v3 and the v2.5 models do.
 DEFAULT_MODEL = {"vi": "eleven_v4", "en": "eleven_v4"}  # user choice 2026-11-07
@@ -159,8 +163,8 @@ def main():
         todo = paras
         if not a.sample and not a.fresh:
             mf = src.with_name(src.stem + ".parts.json")
-            known = {p["key"] for p in json.loads(mf.read_text(encoding="utf-8")).get("parts", [])} if mf.exists() else set()
-            todo = [p for _, ps in sections(src, paras) if part_key(engine, PAUSE_SEC, ps) not in known for p in ps]
+            known = {p["key"]: 1 for p in json.loads(mf.read_text(encoding="utf-8")).get("parts", [])} if mf.exists() else {}
+            todo = [p for _, ps, k in plan_parts(src, paras, engine, PAUSE_SEC, known, GROUP_CHARS) if k not in known for p in ps]
         print(f"{len(todo)}/{len(paras)} paragraphs to send, {sum(len(p) for p in todo):,} characters, "
               f"model {model}, lang {lang}")
         return
@@ -208,7 +212,8 @@ def main():
             lengths.append(len(wav))
         full = np.concatenate(chunks)
     else:
-        full, lengths, _ = build(src, lang, paras, engine, SR, PAUSE_SEC, read_many, fresh=a.fresh, part_bitrate=PART_BITRATE)
+        full, lengths, _ = build(src, lang, paras, engine, SR, PAUSE_SEC, read_many, fresh=a.fresh, part_bitrate=PART_BITRATE,
+                                 group_min=GROUP_CHARS)
     print(f"{sent[0]:,} characters sent to ElevenLabs", flush=True)
     suffix = "-thu" if a.sample else ""
     out = Path(a.out) if a.out else src.with_name(src.stem + suffix + "." + a.format)

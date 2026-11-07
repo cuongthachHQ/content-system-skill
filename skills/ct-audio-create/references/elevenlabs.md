@@ -29,7 +29,7 @@ To change the voice later, replace `ELEVENLABS_VOICE_ID` (or pass `--voice <id>`
 | Voice settings | the voice's own | `--stability`, `--similarity`, `--style` (0 to 1) |
 | Sound from the API | PCM 44.1 kHz mono | `--sr 24000` on a plan that refuses 44.1 kHz |
 | Audio file | HE-AAC 40 kbit/s mono (about 6 MB for 19 minutes) | none; AAC-LC 64 kbit/s (about 9 MB) when no HE-AAC encoder is found; `--format mp3` for an MP3 |
-| Parts | Opus 64 kbit/s | none |
+| Parts | Opus 64 kbit/s, one per group of paragraphs of at least 200 characters (section "Parts") | none |
 | Requests at once | 2 | `--workers` (4 suits a batch); a 429 (the plan's concurrency limit) and 5xx errors are waited out and retried |
 | Language | from the path (`.../en/<slug>.txt` is English) | `--lang` |
 
@@ -53,6 +53,10 @@ ElevenLabs bills credits per character sent: 1 credit per character for v4 (Flas
 - A redo after an edit sends only the sections whose words changed (the parts), usually a few hundred to a few thousand characters.
 - A sample is about 300 characters.
 - Credits of a monthly plan usually do not roll over: the saving is a plan that fits the posts a month.
+
+## Parts
+
+The ElevenLabs reader cuts each section into groups of consecutive paragraphs of at least 200 characters, never across a section; a short heading or line joins the paragraph after it, a short tail joins the group before it. A few words changed then send about 280 characters again instead of the whole section (often over 1,000). v4 reads every paragraph on its own anyway, so a group read again sounds like the rest. A section stored whole (read before this rule, or by an older version) keeps that part while its words stay the same; its first edit reads the section whole and stores it in groups. A post has about 45 parts per language; the store holds the same seconds of sound, so its size does not change.
 
 ## Known pitfalls
 

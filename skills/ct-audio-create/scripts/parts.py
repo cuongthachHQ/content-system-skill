@@ -89,12 +89,51 @@ def part_key(engine: dict, pause_sec: float, paras: list[str]) -> str:
     return hashlib.sha1(blob.encode("utf-8")).hexdigest()[:16]
 
 
+def groups(ps: list[str], group_min: int) -> list[list[str]]:
+    """Consecutive paragraphs of one section, gathered until a group holds group_min characters (user decision
+    2026-11-07, the ElevenLabs reader: an edit sends one group, not the whole section). A short heading or line joins the
+    paragraph after it; a short tail joins the group before it. group_min 0: the section is one group."""
+    if group_min <= 0:
+        return [ps]
+    out, cur, n = [], [], 0
+    for p in ps:
+        cur.append(p)
+        n += len(p)
+        if n >= group_min:
+            out.append(cur)
+            cur, n = [], 0
+    if cur:
+        if out:
+            out[-1] += cur
+        else:
+            out.append(cur)
+    return out
+
+
+def plan_parts(txt: Path, paras: list[str], engine: dict, pause_sec: float, known: dict, group_min: int = 0):
+    """[(heading, paragraphs, key)] in reading order. With group_min, a section is cut into groups; but a section whose
+    words did not change since it was read as one part (a post read before grouping) keeps that one part, so a
+    finished audio is never cut up or read again just for the new rule (user decision 2026-11-07): only a section
+    read again is grouped."""
+    out = []
+    for h, ps in sections(txt, paras):
+        whole = part_key(engine, pause_sec, ps)
+        gs = groups(ps, group_min)
+        keys = [part_key(engine, pause_sec, g) for g in gs]
+        if len(gs) > 1 and whole in known and not all(k in known for k in keys):
+            out.append((h, ps, whole))
+        else:
+            out += [(h if i == 0 else f"{h} ({i + 1})", g, k) for i, (g, k) in enumerate(zip(gs, keys))]
+    return out
+
+
 def build(txt: Path, lang: str, paras: list[str], engine: dict, sr: int, pause_sec: float, read_many, fresh=False,
-          part_bitrate: str = PART_BITRATE):
-    """The whole audio and the samples of each paragraph, reading only the sections no part holds yet.
+          part_bitrate: str = PART_BITRATE, group_min: int = 0):
+    """The whole audio and the samples of each paragraph, reading only the parts no stored part holds yet.
 
     read_many(list of paragraphs) yields one float32 array per paragraph, in order; it is called once, and only when
     something must be read (so the model is not even loaded when every part is reused). fresh=True reads everything.
+    group_min > 0 cuts each section into groups of paragraphs (groups(), plan_parts()).
     """
     slug = txt.stem
     store = txt.parent / "parts"
@@ -108,8 +147,7 @@ def build(txt: Path, lang: str, paras: list[str], engine: dict, sr: int, pause_s
     pause_n = int(sr * pause_sec)
 
     plan, todo, fetched = [], [], 0
-    for h, ps in sections(txt, paras):
-        key = part_key(engine, pause_sec, ps)
+    for h, ps, key in plan_parts(txt, paras, engine, pause_sec, {} if fresh else known, group_min):
         lens = None if fresh else known.get(key)
         audio = None
         if lens and len(lens) == len(ps):
