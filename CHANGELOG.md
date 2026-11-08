@@ -2,6 +2,10 @@
 
 Each release follows the docs at https://cuongthach.com/docs/. A skill changes only when the docs page it is drawn from changes.
 
+## 0.3.1 - 2026-11-08
+
+- The docs page lists `ct-repost-write` in its own section with a demo picture, and the install troubleshooting now sits under the install steps. No skill changed.
+
 ## 0.3.0 - 2026-11-08
 
 - New skill `ct-repost-write`: repurposes a published post into versions for other channels (newsletter, Facebook or X post, community question, videos, podcast), keeping every idea, one idea per version, each linking back to the post. Each version gets a new illustration for the idea of one H2, painted in ink and watercolour with one or two labels of one or two words. `cuongthach` routes a published post to it; both READMEs and the docs page list it.
