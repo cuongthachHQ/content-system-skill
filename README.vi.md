@@ -78,6 +78,7 @@ Thêm `-g` vào cuối lệnh để dùng bộ skill ở mọi dự án trên m�
 | `ct-message-create` | Ép ba câu trả lời về khách hàng, vấn đề và giải pháp thành một câu thông điệp lõi |
 | `ct-post-write` | Chạy ba bước Ý - Viết - Sửa: chốt dàn ý, viết bản nháp một mạch, rồi chỉ cắt |
 | `ct-audio-create` | Đọc bài đã xong thành bản nghe bằng hai giọng miễn phí chạy ngay trên máy bạn, tiếng Việt và tiếng Anh, hoặc bằng chính giọng của bạn clone trên ElevenLabs, chỉ đọc lại mục bạn sửa, giữ audio trên R2 hay trong repo (skill công cụ: có script, đọc `SKILL.md` của nó để cài một lần) |
+| `ct-repost-write` | Tái sử dụng một bài đã đăng thành các bản cho kênh khác, mỗi bản một ý, dẫn link về bài, kèm một hình minh họa mới cho mỗi bản |
 | `cuongthach-update` | Xem có bản mới của bộ skill không, tóm tắt thay đổi, rồi cập nhật khi bạn đồng ý |
 
 ## Ví dụ cách dùng Skill
@@ -89,6 +90,7 @@ Một bài đi qua các skill theo thứ tự dưới đây. **Bạn chỉ cần
 - `/ct-record-plan`: nêu đề tài và loại bài, nhận bộ câu hỏi để tự ghi âm
 - `/ct-message-create`: dán bản ghi âm, ép thành một câu thông điệp lõi
 - `/ct-post-write`: lọc ý, chốt dàn ý, rồi viết và sửa
+- `/ct-repost-write`: dán bài đã đăng, nhận câu hỏi cộng đồng, bài đăng mạng xã hội và bản tin, mỗi bản kèm một hình mới
 
 Bạn cũng có thể nói việc bằng lời thường, như *"Bài này tới bước nào rồi?"*, agent tự gọi skill có mô tả khớp.
 

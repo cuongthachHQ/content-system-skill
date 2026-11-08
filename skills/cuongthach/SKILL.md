@@ -26,6 +26,7 @@ This is the entry point. The user starts here with `/cuongthach`. You find where
 | `ct-message-create` | Squeeze the four parts, customer, pain, solution and result, into one core message line |
 | `ct-post-write` | Run the Idea - Write - Edit steps: lock the outline, write the draft, edit |
 | `ct-audio-create` | Turn a finished post into its audio version with two free local voices, Vietnamese and English, or the user's own cloned ElevenLabs voice (a tool skill with scripts) |
+| `ct-repost-write` | Repurpose a published post into versions for other channels, each with a new illustration |
 | `cuongthach-update` | Update the installed skills to the latest version, when the user asks |
 
 ## Where the post stands
@@ -43,6 +44,7 @@ Ask what the user holds right now. The first row that is true names the next ste
 | A rough draft | Edit step | `ct-post-write` |
 | A finished post | Check its type and its end-of-post link | `ct-post-classify` |
 | A finished post, no audio | Make the audio version, after the user's yes | `ct-audio-create` |
+| A published post, not shared elsewhere | Repurpose it for other channels | `ct-repost-write` |
 
 ## What you do
 

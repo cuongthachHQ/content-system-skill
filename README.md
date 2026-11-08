@@ -78,6 +78,7 @@ Add `-g` to the end of the command to use the skills in every project on your co
 | `ct-message-create` | Squeezes three answers about the customer, the problem and the solution into one core message |
 | `ct-post-write` | Runs the three steps of Idea - Write - Edit: lock the outline, write the draft in one go, then only cut |
 | `ct-audio-create` | Reads a finished post aloud with two free voices on your own computer, Vietnamese and English, or with your own cloned ElevenLabs voice, re-reads only the sections you edit, and keeps the audio in R2 or in your repo (a tool skill: it carries scripts, read its `SKILL.md` for the one-time install) |
+| `ct-repost-write` | Repurposes a published post into versions for other channels, one idea each, linking back to the post, with a new illustration for each version |
 | `cuongthach-update` | Checks for a newer version of the skills, sums up what changed, and updates them on your yes |
 
 ## Skill usage examples
@@ -89,6 +90,7 @@ A post goes through the skills in the order below. **You only need to type `/cuo
 - `/ct-record-plan`: name the topic and the post type, and get the questions to record with
 - `/ct-message-create`: paste the recording and squeeze it into one core message
 - `/ct-post-write`: filter ideas, lock the outline, then write and edit
+- `/ct-repost-write`: paste a published post and get a community question, social posts and a newsletter, each with a new picture
 
 You can also say the task in plain words, such as *"Which step is this post at?"*, and the agent calls the skill whose description matches.
 
