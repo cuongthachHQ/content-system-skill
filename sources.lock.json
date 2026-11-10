@@ -1,10 +1,10 @@
 {
   "version": "0.3.1",
-  "synced": "2026-11-08",
+  "synced": "2026-11-10",
   "sources": {
     "https://cuongthach.com/docs/content-system/agent-skills/": "def59972abc7565575154f24a80dd4b31bf4685f",
     "https://cuongthach.com/docs/content-system/conditions/brand-profile/": "6db4aaa288b16a0bc825f1b920238c6a8af72059",
-    "https://cuongthach.com/docs/content-system/distribution/concepts/derivative-content/": "6eb74cef6f50a94954d533cdda84c80d35c3ed0e",
+    "https://cuongthach.com/docs/content-system/distribution/concepts/derivative-content/": "f7e9be883a4a621525efbbc68272fc90aa1306f8",
     "https://cuongthach.com/docs/content-system/distribution/concepts/repurposed-content/": "da50879e2bed13de568b19c4a88122287a616b1a",
     "https://cuongthach.com/docs/content-system/distribution/guides/how-to/send-a-newsletter/": "077546e0dad38c849092cfbd4eed3bf6aa232741",
     "https://cuongthach.com/docs/content-system/idea-write-edit/concepts/core-message/": "f1105f1cd36360ecb887f33437deac8bfdf5d2cd",
