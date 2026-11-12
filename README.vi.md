@@ -6,7 +6,7 @@
 
 **Ý - Viết - Sửa · Phễu nội dung Biết - Tin - Yêu · Thông điệp lõi**
 
-Bộ 8 skill giúp AI agent dẫn bạn làm một bài theo Ý - Viết - Sửa, từ hồ sơ thương hiệu tới bản nháp đã sửa, mà không viết thay bạn. Dựng từ phương pháp làm nội dung của [Cường Thạch](https://cuongthach.com/vi/).
+Bộ 9 skill giúp AI agent dẫn bạn làm một bài theo Ý - Viết - Sửa, từ hồ sơ thương hiệu tới bản nháp đã sửa, mà không viết thay bạn. Dựng từ phương pháp làm nội dung của [Cường Thạch](https://cuongthach.com/vi/).
 
 [![GitHub stars](https://img.shields.io/github/stars/cuongthachHQ/content-system-skill?style=social)](https://github.com/cuongthachHQ/content-system-skill/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/cuongthachHQ/content-system-skill?style=social)](https://github.com/cuongthachHQ/content-system-skill/network/members)
@@ -42,7 +42,7 @@ Mỗi skill là một thư mục hướng dẫn mà AI agent nạp khi việc c�
 
 ## Cài vào agent
 
-**1. Cài 8 skill.** Cách nhanh nhất là dán câu này vào agent, agent tự chạy lệnh cài:
+**1. Cài 9 skill.** Cách nhanh nhất là dán câu này vào agent, agent tự chạy lệnh cài:
 
 ```text
 Cài tất cả skill ở https://github.com/cuongthachHQ/content-system-skill vào dự án này bằng lệnh npx skills add, chọn đúng agent bạn đang chạy và thêm -y, rồi liệt kê các skill đã cài.
@@ -62,7 +62,7 @@ Thêm `-g` vào cuối lệnh để dùng bộ skill ở mọi dự án trên m�
 
 **2. Kiểm skill đã vào agent.**
 
-- **Trong Claude Code**, gõ `/` và thấy đủ 8 tên, skill nằm ở `.claude/skills/`.
+- **Trong Claude Code**, gõ `/` và thấy đủ 9 tên, skill nằm ở `.claude/skills/`.
 - **Trong Antigravity**, hỏi *"Bạn đang có những skill nào?"*, skill nằm ở `.agents/skills/`.
 
 **3. Gõ `/cuongthach`.** Skill chính hỏi bạn đang có gì: một đề tài, một bản ghi âm, một dàn ý đã chốt hay một bản nháp. Bạn trả lời, rồi nó chạy skill của bước tiếp theo, **không tự viết bài**.

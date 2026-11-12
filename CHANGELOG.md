@@ -2,6 +2,10 @@
 
 Each release follows the docs at https://cuongthach.com/docs/. A skill changes only when the docs page it is drawn from changes.
 
+## 0.3.2 - 2026-11-12
+
+- `LICENSE` is now the standard CC BY 4.0 text, so GitHub shows the license by name; the credit line and the note on method names stay in the README. Both READMEs and the docs page count 9 skills, `cuongthach-update` included. No skill changed.
+
 ## 0.3.1 - 2026-11-08
 
 - The docs page lists `ct-repost-write` in its own section with a demo picture, and the install troubleshooting now sits under the install steps. No skill changed.

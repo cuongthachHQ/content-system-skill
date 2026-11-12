@@ -6,7 +6,7 @@
 
 **Idea - Write - Edit · Know - Trust - Love content funnel · Core message**
 
-8 skills that let your AI agent walk you through one post with Idea - Write - Edit, from brand profile to edited draft, without writing for you. Built from [Cuong Thach](https://cuongthach.com/)'s content method.
+9 skills that let your AI agent walk you through one post with Idea - Write - Edit, from brand profile to edited draft, without writing for you. Built from [Cuong Thach](https://cuongthach.com/)'s content method.
 
 [![GitHub stars](https://img.shields.io/github/stars/cuongthachHQ/content-system-skill?style=social)](https://github.com/cuongthachHQ/content-system-skill/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/cuongthachHQ/content-system-skill?style=social)](https://github.com/cuongthachHQ/content-system-skill/network/members)
@@ -42,7 +42,7 @@ Each skill is a folder of instructions that an AI agent loads when your task cal
 
 ## Install in your agent
 
-**1. Install the 8 skills.** The fastest way is to paste this into your agent, and it runs the install command:
+**1. Install the 9 skills.** The fastest way is to paste this into your agent, and it runs the install command:
 
 ```text
 Install all skills from https://github.com/cuongthachHQ/content-system-skill into this project with npx skills add, picking the agent you are running and adding -y, then list the installed skills.
@@ -62,7 +62,7 @@ Add `-g` to the end of the command to use the skills in every project on your co
 
 **2. Check the skills are in the agent.**
 
-- **In Claude Code**, type `/` and see all 8 names, in `.claude/skills/`.
+- **In Claude Code**, type `/` and see all 9 names, in `.claude/skills/`.
 - **In Antigravity**, ask *"Which skills do you have?"*, with the skills in `.agents/skills/`.
 
 **3. Type `/cuongthach`.** The main skill asks what you hold: a topic, a recording, a locked outline or a draft. You answer, then it runs the skill for the next step, **without writing the post on its own**.
