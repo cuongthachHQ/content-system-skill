@@ -43,8 +43,8 @@ fi
 echo "[2/6] Python 3.12 environment"
 [ -x "$PY" ] || uv venv --python 3.12 "$HOME_DIR/.venv"
 
-echo "[3/6] vieneu 3.8.3 and ffmpeg (the version Sano pins)"
-"$PY" -c "import vieneu, imageio_ffmpeg" 2>/dev/null || uv pip install --python "$PY" "vieneu==3.8.3" imageio-ffmpeg
+echo "[3/6] vieneu 3.8.4 and ffmpeg (installs or moves to the pinned version)"
+"$PY" -c "import importlib.metadata as m, imageio_ffmpeg; assert m.version('vieneu') == '3.8.4'" 2>/dev/null || uv pip install --python "$PY" "vieneu==3.8.4" imageio-ffmpeg
 
 echo "[4/6] model download (about 540 MB, first time only; retries if the network drops)"
 for try in 1 2 3; do

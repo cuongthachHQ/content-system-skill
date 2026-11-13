@@ -47,9 +47,9 @@ if (-not (Get-Command uv -ErrorAction SilentlyContinue)) {
 Write-Host "[2/6] Python 3.12 environment"
 if (-not (Test-Path $Py)) { Run "uv" @("venv", "--python", "3.12", (Join-Path $HomeDir ".venv")) }
 
-Write-Host "[3/6] vieneu 3.8.3 and ffmpeg (the version Sano pins)"
-if (-not (TryRun $Py @("-c", "import vieneu, imageio_ffmpeg"))) {
-  Run "uv" @("pip", "install", "--python", $Py, "vieneu==3.8.3", "imageio-ffmpeg")
+Write-Host "[3/6] vieneu 3.8.4 and ffmpeg (installs or moves to the pinned version)"
+if (-not (TryRun $Py @("-c", "import importlib.metadata as m, imageio_ffmpeg; assert m.version('vieneu') == '3.8.4'"))) {
+  Run "uv" @("pip", "install", "--python", $Py, "vieneu==3.8.4", "imageio-ffmpeg")
 }
 
 Write-Host "[4/6] model download (about 540 MB, first time only; retries if the network drops)"

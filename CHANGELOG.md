@@ -2,6 +2,10 @@
 
 Each release follows the docs at https://cuongthach.com/docs/. A skill changes only when the docs page it is drawn from changes.
 
+## 0.3.3 - 2026-11-13
+
+- `ct-audio-create`: the setup scripts pin VieNeu 3.8.4 and now move an existing install to the pinned version (before, a working older install was kept). The next read of each post with VieNeu reads it whole once.
+
 ## 0.3.2 - 2026-11-12
 
 - `LICENSE` is now the standard CC BY 4.0 text, so GitHub shows the license by name; the credit line and the note on method names stay in the README. Both READMEs and the docs page count 9 skills, `cuongthach-update` included. No skill changed.
