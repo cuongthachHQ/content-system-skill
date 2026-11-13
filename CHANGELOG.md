@@ -2,6 +2,10 @@
 
 Each release follows the docs at https://cuongthach.com/docs/. A skill changes only when the docs page it is drawn from changes.
 
+## 0.3.4 - 2026-11-13
+
+- `ct-audio-create`: the ElevenLabs reader sends each paragraph with the one before and after it (stitching, not billed; `--no-stitch` turns it off), reuses parts read without it, reports the credits billed, explains 401, 402, 404 and 422 errors, drops settings the model ignores and strips square brackets that v3 and v4 read as audio tags. `--sample 3` reads three paragraphs to hear the joins.
+
 ## 0.3.3 - 2026-11-13
 
 - `ct-audio-create`: the setup scripts pin VieNeu 3.8.4 and now move an existing install to the pinned version (before, a working older install was kept). The next read of each post with VieNeu reads it whole once.

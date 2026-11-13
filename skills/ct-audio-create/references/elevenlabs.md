@@ -26,7 +26,8 @@ To change the voice later, replace `ELEVENLABS_VOICE_ID` (or pass `--voice <id>`
 | Model | `eleven_v4`, both languages | `--model` (`eleven_v3`; `eleven_flash_v2_5` costs about half; `eleven_multilingual_v2` has no Vietnamese) |
 | Voice | `ELEVENLABS_VOICE_ID` | `--voice <id>` |
 | Speed | Vietnamese 1.1 x, English 1.0 x | `--tempo` (applied after the call with ffmpeg `atempo`, pitch kept). v3 and v4 ignore the API's `--speed` |
-| Voice settings | the voice's own | `--stability`, `--similarity`, `--style` (0 to 1) |
+| Voice settings | the voice's own | `--stability`, `--similarity` (0 to 1); `--style` only below v4, `--speed` only below v3 (the reader drops them with a notice). If the voice drifts between paragraphs, try stability 0.7 and similarity 0.5 |
+| Stitching | on | `--no-stitch` (section "Stitching") |
 | Sound from the API | PCM 44.1 kHz mono | `--sr 24000` on a plan that refuses 44.1 kHz |
 | Audio file | HE-AAC 40 kbit/s mono (about 6 MB for 19 minutes) | none; AAC-LC 64 kbit/s (about 9 MB) when no HE-AAC encoder is found; `--format mp3` for an MP3 |
 | Parts | Opus 64 kbit/s, one per group of paragraphs of at least 200 characters (section "Parts") | none |
@@ -39,11 +40,11 @@ HE-AAC needs Apple's encoder: qaac on Windows, the Homebrew ffmpeg (`aac_at`) on
 
 ```bash
 "$PY" <skill>/scripts/doc-bai-viet-elevenlabs.py <audioWork>/<slug>/<slug>.txt --dry      # characters to send, free
-"$PY" <skill>/scripts/doc-bai-viet-elevenlabs.py <audioWork>/<slug>/<slug>.txt --sample   # paragraph 2, <slug>-thu.m4a
+"$PY" <skill>/scripts/doc-bai-viet-elevenlabs.py <audioWork>/<slug>/<slug>.txt --sample   # paragraph 2, <slug>-thu.m4a (--sample 3: paragraphs 2 to 4, to hear the joins)
 "$PY" <skill>/scripts/doc-bai-viet-elevenlabs.py <audioWork>/<slug>/<slug>.txt > <log outside the project> 2>&1   # in the background
 ```
 
-English: the same on `<audioWork>/<slug>/en/<slug>.txt`. On Windows prefix `PYTHONIOENCODING=utf-8 PYTHONUTF8=1`. The last log line is `Wrote <file> (<minutes> min, <encoder>)`: check it names HE-AAC when an encoder is installed. A 20-minute post takes about 2 minutes per language with `--workers 4`. Then store it as usual (step 6).
+The read ends with `N characters sent to ElevenLabs, M credits billed`: M is what ElevenLabs billed (the `character-cost` response header); tell the user. English: the same on `<audioWork>/<slug>/en/<slug>.txt`. On Windows prefix `PYTHONIOENCODING=utf-8 PYTHONUTF8=1`. The last log line is `Wrote <file> (<minutes> min, <encoder>)`: check it names HE-AAC when an encoder is installed. A 20-minute post takes about 2 minutes per language with `--workers 4`. Then store it as usual (step 6).
 
 ## Cost
 
@@ -58,9 +59,16 @@ ElevenLabs bills credits per character sent: 1 credit per character for v4 (Flas
 
 The ElevenLabs reader cuts each section into groups of consecutive paragraphs of at least 200 characters, never across a section; a short heading or line joins the paragraph after it, a short tail joins the group before it. A few words changed then send about 280 characters again instead of the whole section (often over 1,000). v4 reads every paragraph on its own anyway, so a group read again sounds like the rest. A section stored whole (read before this rule, or by an older version) keeps that part while its words stay the same; its first edit reads the section whole and stores it in groups. A post has about 45 parts per language; the store holds the same seconds of sound, so its size does not change.
 
+## Stitching
+
+Every paragraph is sent with the paragraph before and after it (`previous_text` and `next_text`), so the tone carries across paragraphs instead of each one starting fresh. The context is not billed: the same paragraphs cost the same credits with and without it. `--no-stitch` turns it off.
+
+Stitching is part of a part's name, but a part read without it is reused while its words stay the same: audio read before is never read again just for stitching, and an edit reads only the changed groups, stitched. Read a post again whole (`--fresh`) only with the user's yes.
+
 ## Known pitfalls
 
 - `eleven_multilingual_v2` cannot read Vietnamese.
-- v3 and v4 refuse `previous_text` and `next_text`; the script sends them only to older models.
+- v3 and v4 read words in square brackets as audio tags (`[whispers]`, `[laughs]`): the reader removes every `[` and `]` before sending to them.
+- An error names its likely cause: 401 the key, 402 the plan or the credits, 404 the voice id, 422 a refused parameter.
 - A key without Models permission answers 401 `missing_permissions` on the model list: not needed for reading.
 - Raising `--speed` does nothing on v3 and v4: use `--tempo`.

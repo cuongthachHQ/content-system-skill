@@ -61,6 +61,14 @@ def env(name: str) -> str | None:
     return None
 
 
+COST = []        # credits billed per call, from the `character-cost` response header
+LIMIT = [None]   # the plan's `maximum-concurrent-requests`, from the last response
+HINT = {401: "the key is wrong, revoked or lacks Text to Speech access (skill setup-api-key checks it without printing it)",
+        402: "the plan cannot use this voice or model, or the credits ran out",
+        404: "unknown voice id (ids: --list-voices)",
+        422: "a parameter was refused (voice id, model, settings)"}
+
+
 def call(path: str, key: str, body: dict | None = None, tries: int = 5) -> bytes:
     url = API + path
     for n in range(tries):
@@ -68,13 +76,19 @@ def call(path: str, key: str, body: dict | None = None, tries: int = 5) -> bytes
                                      headers={"xi-api-key": key, "User-Agent": UA, "Content-Type": "application/json"})
         try:
             with urllib.request.urlopen(req, timeout=180) as r:
-                return r.read()
+                data = r.read()
+                if r.headers.get("character-cost", "").isdigit():
+                    COST.append(int(r.headers["character-cost"]))
+                if r.headers.get("maximum-concurrent-requests", "").isdigit():
+                    LIMIT[0] = int(r.headers["maximum-concurrent-requests"])
+                return data
         except urllib.error.HTTPError as e:
             msg = e.read().decode("utf-8", "replace")[:400]
             if e.code in (429, 500, 502, 503, 504) and n < tries - 1:
                 time.sleep(2 ** n * 2)
                 continue
-            raise SystemExit(f"ElevenLabs {e.code}: {msg}")
+            hint = f" ({HINT[e.code]})" if e.code in HINT else ""
+            raise SystemExit(f"ElevenLabs {e.code}{hint}: {msg}")
         except urllib.error.URLError as e:
             if n < tries - 1:
                 time.sleep(2 ** n * 2)
@@ -109,15 +123,18 @@ def main():
     ap.add_argument("--lang", choices=["vi", "en"], help="default: en when the path has /en/, else vi")
     ap.add_argument("--stability", type=float, help="0 to 1; default: the voice's own setting")
     ap.add_argument("--similarity", type=float, help="similarity_boost, 0 to 1; default: the voice's own")
-    ap.add_argument("--style", type=float, help="0 to 1; default: the voice's own")
-    ap.add_argument("--speed", type=float, help="0.7 to 1.2; default: the voice's own")
+    ap.add_argument("--style", type=float, help="0 to 1; default: the voice's own (not on v4: dropped)")
+    ap.add_argument("--speed", type=float, help="0.7 to 1.2; default: the voice's own (not on v3 or v4: dropped, use --tempo)")
+    ap.add_argument("--no-stitch", action="store_true",
+                    help="do not send the paragraphs before and after as previous_text / next_text (on by default)")
     ap.add_argument("--tempo", type=float, help="default: vi 1.1, en 1.0. Speed up (or slow down) after the call, pitch kept (ffmpeg atempo, 0.5 to 2); v3 and v4 ignore --speed")
     ap.add_argument("--sr", type=int, choices=[44100, 24000, 22050, 16000], default=SR,
                     help="sample rate asked from ElevenLabs (44100 needs a paid plan)")
     ap.add_argument("--workers", type=int, default=2, help="requests at once (the plan's concurrency limit caps it)")
     ap.add_argument("--format", choices=["m4a", "mp3"], default="m4a")
     ap.add_argument("--out")
-    ap.add_argument("--sample", action="store_true", help="read only paragraph 2, as <name>-thu.m4a")
+    ap.add_argument("--sample", nargs="?", type=int, const=1, default=0, metavar="N",
+                    help="read only paragraph 2 (N paragraphs from 2, to hear the joins), as <name>-thu.m4a")
     ap.add_argument("--sync", help="timing file to write (default <paths.audioSync>/<name>.<lang>.json)")
     ap.add_argument("--no-sync", action="store_true")
     ap.add_argument("--fresh", action="store_true", help="read every section again, reusing no part")
@@ -147,16 +164,29 @@ def main():
     if a.tempo is None:
         a.tempo = TEMPO[lang]
     paras = [p.strip() for p in src.read_text(encoding="utf-8").split("\n\n") if p.strip()]
+    every = paras  # the whole text: --stitch takes a sample's neighbours from it
     if a.sample:
-        paras = paras[1:2] or paras[:1]
+        paras = paras[1:1 + a.sample] or paras[:1]
 
+    expressive = model.startswith(("eleven_v3", "eleven_v4"))
+    # v4 takes only stability and similarity_boost; v3 and v4 ignore speed (--tempo does it after the call)
+    unsupported = {"style", "speed"} if model.startswith("eleven_v4") else {"speed"} if expressive else set()
+    for k, v in (("style", a.style), ("speed", a.speed)):
+        if v is not None and k in unsupported:
+            print(f"--{k} is not supported by {model}: dropped", flush=True)
     settings = {k: v for k, v in {"stability": a.stability, "similarity_boost": a.similarity,
-                                  "style": a.style, "speed": a.speed}.items() if v is not None}
+                                  "style": a.style, "speed": a.speed}.items() if v is not None and k not in unsupported}
     engine = {"name": "elevenlabs", "model": model, "voice": voice, "settings": settings, "lang": lang, "sr": SR}
     if a.tempo != 1.0:
         engine["tempo"] = a.tempo  # only when set, so parts read before --tempo existed keep their names
-    expressive = model.startswith(("eleven_v3", "eleven_v4"))
-    stitch = not expressive  # previous_text / next_text keep the tone between paragraphs; v3 and v4 refuse them
+    # previous_text / next_text keep the tone between paragraphs (context, not billed). v3 and v4 accept them since
+    # 2026-11 (refused before); the default since 2026-11-13 (user decision after two samples). Keyed for v3 and v4
+    # only; parts read before without it are reused while their words stay the same (`older`), never read again for it.
+    stitch = not a.no_stitch
+    older = ()
+    if stitch and expressive:
+        older = (dict(engine),)
+        engine["stitch"] = True
     lang_code = "_v2_5" in model or expressive
 
     if a.dry:
@@ -164,7 +194,7 @@ def main():
         if not a.sample and not a.fresh:
             mf = src.with_name(src.stem + ".parts.json")
             known = {p["key"]: 1 for p in json.loads(mf.read_text(encoding="utf-8")).get("parts", [])} if mf.exists() else {}
-            todo = [p for _, ps, k in plan_parts(src, paras, engine, PAUSE_SEC, known, GROUP_CHARS) if k not in known for p in ps]
+            todo = [p for _, ps, k in plan_parts(src, paras, engine, PAUSE_SEC, known, GROUP_CHARS, older) if k not in known for p in ps]
         print(f"{len(todo)}/{len(paras)} paragraphs to send, {sum(len(p) for p in todo):,} characters, "
               f"model {model}, lang {lang}")
         return
@@ -172,7 +202,8 @@ def main():
 
     def one(i_p):
         i, p, prev, nxt = i_p
-        body = {"text": p, "model_id": model}
+        # v3 and v4 read [words] as an audio tag ([whispers], [laughs]): never send a bracket
+        body = {"text": p.replace("[", "").replace("]", "") if expressive else p, "model_id": model}
         if settings:
             body["voice_settings"] = settings
         if lang_code:
@@ -195,9 +226,9 @@ def main():
     def read_many(todo):
         jobs = []
         for i, p in enumerate(todo):
-            j = paras.index(p) if p in paras else -1
-            prev = paras[j - 1] if j > 0 else ""
-            nxt = paras[j + 1] if 0 <= j < len(paras) - 1 else ""
+            j = every.index(p) if p in every else -1
+            prev = every[j - 1] if j > 0 else ""
+            nxt = every[j + 1] if 0 <= j < len(every) - 1 else ""
             jobs.append((i, p, prev, nxt))
         with ThreadPoolExecutor(max(1, a.workers)) as ex:
             for n, wav in enumerate(ex.map(one, jobs), 1):
@@ -213,8 +244,11 @@ def main():
         full = np.concatenate(chunks)
     else:
         full, lengths, _ = build(src, lang, paras, engine, SR, PAUSE_SEC, read_many, fresh=a.fresh, part_bitrate=PART_BITRATE,
-                                 group_min=GROUP_CHARS)
-    print(f"{sent[0]:,} characters sent to ElevenLabs", flush=True)
+                                 group_min=GROUP_CHARS, older=older)
+    billed = f", {sum(COST):,} credits billed" if COST else ""
+    print(f"{sent[0]:,} characters sent to ElevenLabs{billed}", flush=True)
+    if LIMIT[0] and a.workers > LIMIT[0]:
+        print(f"--workers {a.workers} is above the plan's limit of {LIMIT[0]} requests at once: the extra ones got 429 and were retried", flush=True)
     suffix = "-thu" if a.sample else ""
     out = Path(a.out) if a.out else src.with_name(src.stem + suffix + "." + a.format)
     if not (a.sample or a.no_sync):

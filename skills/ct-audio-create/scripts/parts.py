@@ -110,16 +110,27 @@ def groups(ps: list[str], group_min: int) -> list[list[str]]:
     return out
 
 
-def plan_parts(txt: Path, paras: list[str], engine: dict, pause_sec: float, known: dict, group_min: int = 0):
+def plan_parts(txt: Path, paras: list[str], engine: dict, pause_sec: float, known: dict, group_min: int = 0,
+               older: tuple = ()):
     """[(heading, paragraphs, key)] in reading order. With group_min, a section is cut into groups; but a section whose
     words did not change since it was read as one part (a post read before grouping) keeps that one part, so a
     finished audio is never cut up or read again just for the new rule (user decision 2026-11-07): only a section
-    read again is grouped."""
+    read again is grouped. `older` engines: a part read with one of them and the same words is reused too (stitching
+    became the default on 2026-11-13; old parts are never read again just for it)."""
+    def key(ps):
+        k = part_key(engine, pause_sec, ps)
+        if k not in known:
+            for e in older:
+                k2 = part_key(e, pause_sec, ps)
+                if k2 in known:
+                    return k2
+        return k
+
     out = []
     for h, ps in sections(txt, paras):
-        whole = part_key(engine, pause_sec, ps)
+        whole = key(ps)
         gs = groups(ps, group_min)
-        keys = [part_key(engine, pause_sec, g) for g in gs]
+        keys = [key(g) for g in gs]
         if len(gs) > 1 and whole in known and not all(k in known for k in keys):
             out.append((h, ps, whole))
         else:
@@ -128,7 +139,7 @@ def plan_parts(txt: Path, paras: list[str], engine: dict, pause_sec: float, know
 
 
 def build(txt: Path, lang: str, paras: list[str], engine: dict, sr: int, pause_sec: float, read_many, fresh=False,
-          part_bitrate: str = PART_BITRATE, group_min: int = 0):
+          part_bitrate: str = PART_BITRATE, group_min: int = 0, older: tuple = ()):
     """The whole audio and the samples of each paragraph, reading only the parts no stored part holds yet.
 
     read_many(list of paragraphs) yields one float32 array per paragraph, in order; it is called once, and only when
@@ -147,7 +158,7 @@ def build(txt: Path, lang: str, paras: list[str], engine: dict, sr: int, pause_s
     pause_n = int(sr * pause_sec)
 
     plan, todo, fetched = [], [], 0
-    for h, ps, key in plan_parts(txt, paras, engine, pause_sec, {} if fresh else known, group_min):
+    for h, ps, key in plan_parts(txt, paras, engine, pause_sec, {} if fresh else known, group_min, older):
         lens = None if fresh else known.get(key)
         audio = None
         if lens and len(lens) == len(ps):
